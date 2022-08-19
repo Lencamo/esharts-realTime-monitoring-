@@ -10,7 +10,7 @@ const respBusiness = require('./middleware/respBusiness')
 // （中间件处理：注意顺序）
 app.use(respDuration)
 app.use(respHeader)
-// app.use(respBusiness)
+app.use(respBusiness)
 
 app.listen(3000, '127.0.0.1', () => {
   console.log('Server running at http://127.0.0.1:3000')
