@@ -15,3 +15,7 @@ app.use(respBusiness)
 app.listen(3000, '127.0.0.1', () => {
   console.log('Server running at http://127.0.0.1:3000')
 })
+
+// 监听(开启)websocket的连接情况
+const serve = require('./websocket/service')
+serve.listen()
