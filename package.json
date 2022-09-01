@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "koa": "^2.13.4",
-    "nodemon": "^2.0.19"
+    "nodemon": "^2.0.19",
+    "ws": "^8.8.1"
   }
 }
