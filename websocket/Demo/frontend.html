@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button id="connect">连接</button>
+  <button id="send" disabled="true">发送数据</button>
+
+  <br><br>
+  服务端响应的数据：
+  <br>
+  <Span id="receive"></Span>
+
+  <script>
+    var connect = document.querySelector('#connect')
+    var send = document.querySelector('#send')
+    var receive = document.querySelector('#receive')
+    let ws = null
+
+    // 连接状态
+    connect.onclick = function () {
+      // 变量作用域提升
+      ws = new WebSocket('ws://127.0.0.1:9191')
+
+      ws.onopen = () => {
+        console.log('连接成功')
+        send.disabled = false
+      }
+
+      // ✨接收服务端数据
+      ws.onmessage = (msgObj) => {
+        console.log("后端发送的数据：" + msgObj.data)
+        // 显示数据
+        receive.innerHTML = msgObj.data
+      }
+
+      ws.onclose = () => {
+        console.log('连接失败')
+        send.disabled = true
+      }
+    }
+
+    // ✨发送数据
+    send.onclick = function () {
+      // 测试环境
+      // ws.send('message from frontend')
+
+      // 开发环境
+      // 数据1（图表数据）
+      // ws.send(JSON.stringify({
+      //   action: 'getData',
+      //   socketType: 'trendData',
+      //   chartName: 'trend',
+      //   value: ''
+      // }))
+
+      // 数据2（全屏事件）
+      // ws.send(JSON.stringify({
+      //   action: 'fullScreen',
+      //   socketType: 'fullScreen',
+      //   chartName: 'trend',
+      //   value: true
+      // }))
+
+      // 数据2（主题切换）
+      ws.send(JSON.stringify({
+        action: 'themeChange',
+        socketType: 'themeChange',
+        chartName: '',
+        value: "chalk"
+      }))
+    }
+  </script>
+</body>
+
+</html>
