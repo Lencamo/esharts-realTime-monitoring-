@@ -19,10 +19,7 @@ module.exports.listen = () => {
 
       // 是否为🚩全屏和主题切换
       if (payload.action === 'getData') {
-        let dataPath = path.join(
-          __dirname,
-          '../data/' + payload.chartName + '.json'
-        )
+        let dataPath = path.join(__dirname, '../data/' + payload.chartName + '.json')
 
         const ret = await readTool.getFile(dataPath)
         payload.data = ret
